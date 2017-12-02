@@ -12,7 +12,7 @@ import { DishService } from "../services/dish.service";
 export class DishdetailComponent implements OnInit {
   
    dish : Dish;
-  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute;) { }
+  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute) { }
 
   ngOnInit() {
 
