@@ -52,6 +52,11 @@
 
             </p>
             <p>
+                <!-- <md-input-container class="full-width" > -->
+                    <md-slider id="commentrate" min="1" max="5" step="1" thumbLabel tickInterval="1"></md-slider>
+                <!-- </md-input-container> -->
+            </p>
+            <p>
                 <md-input-container class="full-width" dividerColor="{{ formErrors.writername? 'warn' : 'primary'}}">
                     <textarea mdInput formControlName="commenttext" placeholder="Your Comment" rows=12 required></textarea>
                     <md-hint>
@@ -60,6 +65,7 @@
                     </md-hint>
                 </md-input-container>
             </p>
+            <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
         </form>
     </div>
 

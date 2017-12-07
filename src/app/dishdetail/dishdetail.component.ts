@@ -30,14 +30,14 @@ export class DishdetailComponent implements OnInit {
 
   validationMessages = {
     'writername': {
-      'required':      'Name is required.',
-      'minlength':     'Name must be at least 2 characters long.',
-      'maxlength':     'Name cannot be more than 25 characters long.'
+      'required':      'Auther Name is required.',
+      'minlength':     'Auther Name must be at least 2 characters long.',
+      'maxlength':     'Auther Name cannot be more than 25 characters long.'
     },
     'commenttext': {
-      'required':      'Last Name is required.',
+      'required':      'Comment is required.'/*,
       'minlength':     'Last Name must be at least 2 characters long.',
-      'maxlength':     'Last Name cannot be more than 25 characters long.'
+      'maxlength':     'Last Name cannot be more than 25 characters long.'*/
     }
   };
   constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute,private fb:FormBuilder) {
