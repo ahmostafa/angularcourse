@@ -20,21 +20,21 @@ export class DishdetailComponent implements OnInit {
    dishIds: number[];
    prev: number;
    next: number;
-
+   
    commentForm:FormGroup;
    comment:Comment;
    formErrors={
-    'writername':'',
-    'commenttext':''
+    'author':'',
+    'comment':''
   };
 
   validationMessages = {
-    'writername': {
+    'author': {
       'required':      'Auther Name is required.',
       'minlength':     'Auther Name must be at least 2 characters long.',
       'maxlength':     'Auther Name cannot be more than 25 characters long.'
     },
-    'commenttext': {
+    'comment': {
       'required':      'Comment is required.'/*,
       'minlength':     'Last Name must be at least 2 characters long.',
       'maxlength':     'Last Name cannot be more than 25 characters long.'*/
@@ -64,14 +64,35 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit():void{
+    // this.feedback = this.feedbackForm.value;
+    // console.log(this.feedback);
+    // this.feedbackForm.reset({
+    //   firstname:'',
+    //   lastname:'',
+    //   telnum:'',
+    //   email:'',
+    //   agree:false,
+    //   contacttype:'None',
+    //   message:''
+    // });
+
+    this.comment = this.commentForm.value;
+    this.comment.date= Date.now().toString();
+    this.commentForm.reset({
+      author:'',
+      rating:1,
+      comment:''
+    })
+    this.dish.comments.push(this.comment);
 
   }
 
   createForm(): void {
     this.commentForm = this.fb.group({
-      writername:['',[Validators.required,Validators.minLength(2),Validators.maxLength(25)]],
-      commenttext:['',[Validators.required,Validators.minLength(2),Validators.maxLength(25)]]
-
+      
+      author:['',[Validators.required,Validators.minLength(2),Validators.maxLength(25)]],
+      comment:['',[Validators.required,Validators.minLength(2),Validators.maxLength(25)]],
+      rating:[1]
     });
     this.commentForm.valueChanges
     .subscribe(data=>this.onValueChanged(data));

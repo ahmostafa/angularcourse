@@ -29,10 +29,19 @@
             <md-list-item *ngFor="let comment of dish.comments">
                 <h1 md-line>{{comment.comment}}</h1>
                 <h1 md-line>{{comment.rating}} Stars</h1>
-                <h1 md-line>{{comment.author}} {{comment.date | date}}</h1>
+                <h1 md-line>-- {{comment.author}} {{comment.date | date}}</h1>
             </md-list-item>
         </md-list>
 
+        <md-list *ngIf="!commentForm.invalid">
+
+
+            <md-list-item>
+                <h1 md-line>{{commentForm.get('comment').value}}</h1>
+                <h1 md-line>{{commentForm.get('rating').value}} Stars</h1>
+                <h1 md-line>-- {{commentForm.get('author').value}}</h1>
+            </md-list-item>
+        </md-list>
     </div>
     <div [hidden]="dish">
         <md-spinner></md-spinner>
@@ -42,26 +51,26 @@
         <p>{{commentForm.value|json}} {{commentForm.status|json}}</p>
         <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
             <p>
-                <md-input-container class="full-width" dividerColor="{{ formErrors.writername? 'warn' : 'primary'}}">
-                    <input mdInput formControlName="writername" placeholder="Name" type="text" required>
+                <md-input-container class="full-width" dividerColor="{{ formErrors.author? 'warn' : 'primary'}}">
+                    <input mdInput formControlName="author" placeholder="Name" type="text" required>
                     <md-hint>
-                        <span [hidden]="!(formErrors.writername)">
-                                        {{formErrors.writername}}</span>
+                        <span [hidden]="!(formErrors.author)">
+                                        {{formErrors.author}}</span>
                     </md-hint>
                 </md-input-container>
 
             </p>
             <p>
                 <!-- <md-input-container class="full-width" > -->
-                    <md-slider id="commentrate" min="1" max="5" step="1" thumbLabel tickInterval="1"></md-slider>
+                <md-slider min="1" formControlName="rating" max="5" step="1" thumbLabel tickInterval="1"></md-slider>
                 <!-- </md-input-container> -->
             </p>
             <p>
-                <md-input-container class="full-width" dividerColor="{{ formErrors.writername? 'warn' : 'primary'}}">
-                    <textarea mdInput formControlName="commenttext" placeholder="Your Comment" rows=12 required></textarea>
+                <md-input-container class="full-width" dividerColor="{{ formErrors.comment? 'warn' : 'primary'}}">
+                    <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=12 required></textarea>
                     <md-hint>
-                        <span [hidden]="!(formErrors.commenttext)">
-                                            {{formErrors.commenttext}}</span>
+                        <span [hidden]="!(formErrors.comment)">
+                                            {{formErrors.comment}}</span>
                     </md-hint>
                 </md-input-container>
             </p>
