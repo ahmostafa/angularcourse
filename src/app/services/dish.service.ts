@@ -21,22 +21,26 @@ export class DishService {
 
     // return Observable.of(DISHES).delay(2000) ;    
     return this.http.get(baseURL + 'dishes')
-    .map(res=>{return this.processHttpmsgService.extractData(res)});
+    .map(res=>{return this.processHttpmsgService.extractData(res)})
+    .catch(error=>{return this.processHttpmsgService.handelError(error)});
   }
 
   getDish(id:number):  Observable<Dish>{
     return this.http.get(baseURL +'dishes/'+id)
-    .map(res =>{return this.processHttpmsgService.extractData(res)});
+    .map(res =>{return this.processHttpmsgService.extractData(res)})
+    .catch(error=>{return this.processHttpmsgService.handelError(error)});
   }
 
   getFeaturedDish():  Observable <Dish> {
     return this.http.get(baseURL +'dishes?featured=true')
-    .map(res =>{return this.processHttpmsgService.extractData(res)[0]});
+    .map(res =>{return this.processHttpmsgService.extractData(res)[0]})
+    .catch(error=>{return this.processHttpmsgService.handelError(error)});
   }
 
   getDishsIds():Observable<number[]>{
     return this.getDishes()
     .map(dishes=>{return dishes.map(dish=>dish.id)})
+    .catch(error=>{return this.processHttpmsgService.handelError(error)});
 
   }
 }
