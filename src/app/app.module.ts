@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpModule } from "@angular/http";
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -20,9 +21,12 @@ import { ContactComponent } from './contact/contact.component';
 import {DishService} from './services/dish.service';
 import { PromotionService } from "./services/promotion.service";
 import {LeaderService} from "./services/leader.service";
+import { baseURL } from "./shared/baseurl";
+import { ProcessHttpmsgService } from "./services/process-httpmsg.service";
 
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { LoginComponent } from './login/login.component';
+
 
 
 @NgModule({
@@ -44,9 +48,10 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
-  providers: [DishService,PromotionService,LeaderService],
+  providers: [DishService,PromotionService,LeaderService,{provide:"BaseURL",useValue:baseURL},ProcessHttpmsgService],
   entryComponents:[LoginComponent],
   bootstrap: [AppComponent]
 })
