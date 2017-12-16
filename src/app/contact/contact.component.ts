@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { FormBuilder,FormGroup,Validator } from "@angular/forms";
 import { FeedBack,ContactType } from "../shared/feedback";
 import { Validators } from '@angular/forms';
 import { flyInOut,expand } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 
 @Component({
@@ -23,7 +24,11 @@ export class ContactComponent implements OnInit {
 
   feedbackForm :FormGroup;
   feedback:FeedBack;
+  feedbackSub=null;
+  feedbacks:FeedBack[];
+  feedbacksCopy=null;
   contactType=ContactType;
+  showSpinner=false;
   formErrors={
     'firstname':'',
     'lastname':'',
@@ -52,8 +57,11 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor( private fb:FormBuilder) {
-    this.createForm()
+  constructor( private fb:FormBuilder,private feedbackService:FeedbackService,@Inject('BaseURL')private BaseURL) {
+    this.createForm();
+    // this.feedbackService.getFeedbacks()
+    // .subscribe( feedbacks=> {console.log(feedbacks.length+ " AH2M");this.feedbacks=feedbacks;this.feedbacksCopy=feedbacks });
+
    }
 
   ngOnInit() {
@@ -77,7 +85,21 @@ export class ContactComponent implements OnInit {
   }
   onSubmit():void{
     this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    // console.log(this.feedbacksCopy+ " AHM3")
+    // this.feedbacksCopy.push(this.feedback);
+    // this.feedbacksCopy.save()
+    // .subscribe(feedback =>this.feedbackSub=feedback);
+    this.feedbackSub=null;
+    this.feedbackService.submitFeedback(this.feedback);
+    this.showSpinner=true;
+    this.feedbackService.getLastFeedback().subscribe(feedback=>{this.feedbackSub=feedback;console.log(this.feedbackSub.firstname+"AHM8");
+    this.showSpinner=false;
+    setTimeout(()=>{
+        this.feedbackSub=null;
+      },5000);
+      
+    });
+    
     this.feedbackForm.reset({
       firstname:'',
       lastname:'',

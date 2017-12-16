@@ -40,7 +40,7 @@ export class DishService {
     // .map(res =>{return this.processHttpmsgService.extractData(res)[0]})
     // .catch(error=>{return this.processHttpmsgService.handelError(error)});
     return this.restangular.all('dishes').getList({featured:true})
-    .map(dishes => dishes[0])
+    .map(dishes => dishes[0]);
   }
 
   getDishsIds():Observable<number[]>{
